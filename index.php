@@ -64,6 +64,35 @@ $hotels = [
       </ul>
     <?php endforeach; ?>
   </div>
+
+  <div class="container">
+
+    <table class="table">
+      <thead>
+        <tr>
+          <?php foreach ($hotels[0] as $key => $value) : ?>
+            <th><?php echo "$key" ?></th>
+          <?php endforeach; ?>
+        </tr>
+      </thead>
+
+      <tbody>
+
+        <?php foreach ($hotels as $hotel) : ?>
+          <tr>
+            <?php foreach ($hotel as $key => $value) : ?>
+              <td><?php echo "$value" ?></td>
+            <?php endforeach; ?>
+          </tr>
+        <?php endforeach; ?>
+
+      </tbody>
+    </table>
+  </div>
+
+
+
+
 </body>
 
 </html>
