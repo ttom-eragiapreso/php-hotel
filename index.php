@@ -39,6 +39,7 @@ $hotels = [
 ];
 
 $stampa_brutta = false;
+
 ?>
 
 
@@ -76,14 +77,14 @@ $stampa_brutta = false;
     <form action="./index.php" class="d-flex">
 
       <div class="form-check">
-        <input class="form-check-input" type="radio" name="parcheggioSi" id="flexRadioDefault1">
+        <input class="form-check-input" type="radio" name="parcheggio" id="flexRadioDefault1" value="true">
         <label class="form-check-label" for="flexRadioDefault1">
           Con parcheggio
         </label>
       </div>
 
       <div class="form-check mx-3">
-        <input class="form-check-input" type="radio" name="parcheggioNo" id="flexRadioDefault2">
+        <input class="form-check-input" type="radio" name="parcheggio" id="flexRadioDefault2" value="false">
         <label class="form-check-label" for="flexRadioDefault2">
           Senza parcheggio
         </label>
@@ -106,6 +107,7 @@ $stampa_brutta = false;
 
 
     <table class="table table-striped">
+
       <thead>
         <tr>
           <?php foreach ($hotels[0] as $key => $value) : ?>
@@ -116,20 +118,63 @@ $stampa_brutta = false;
 
       <tbody>
 
-        <?php foreach ($hotels as $hotel) : ?>
-          <tr>
-            <?php foreach ($hotel as $key => $value) : ?>
-              <?php if ($key === 'parking') {
-                $value === false ? $value = 'No' : $value = 'Si';
-              }
-              ?>
-              <td><?php echo "$value" ?></td>
-            <?php endforeach; ?>
-          </tr>
-        <?php endforeach; ?>
+
+        <?php if (!isset($_GET['parcheggio']) && empty($_GET['voto'])) : ?>
+          <?php foreach ($hotels as $hotel) : ?>
+
+            <tr>
+              <?php foreach ($hotel as $key => $value) : ?>
+                <?php if ($key === 'parking') {
+                  $value === false ? $value = 'No' : $value = 'Si';
+                } ?>
+                <td><?php echo "$value" ?></td>
+              <?php endforeach; ?>
+            </tr>
+
+          <?php endforeach; ?>
+
+        <?php else : ?>
+
+
+
+          <?php foreach ($hotels as $hotel) : ?>
+
+            <?php if ($_GET['parcheggio'] === 'true' && $hotel['parking'] === true && $hotel['vote'] >= $_GET['voto']) : ?>
+              <tr>
+
+                <?php foreach ($hotel as $key => $value) : ?>
+                  <?php if ($key === 'parking') {
+                    $value === false ? $value = 'No' : $value = 'Si';
+                  } ?>
+                  <td><?php echo "$value" ?></td>
+                <?php endforeach; ?>
+
+              </tr>
+            <?php endif; ?>
+
+            <?php if ($_GET['parcheggio'] === 'false' && $hotel['parking'] === false) : ?>
+              <tr>
+
+                <?php foreach ($hotel as $key => $value) : ?>
+                  <?php if ($key === 'parking') {
+                    $value === false ? $value = 'No' : $value = 'Si';
+                  } ?>
+                  <td><?php echo "$value" ?></td>
+                <?php endforeach; ?>
+
+              </tr>
+            <?php endif; ?>
+
+          <?php endforeach; ?>
+
+
+        <?php endif; ?>
 
       </tbody>
     </table>
+
+
+    <?php var_dump($_GET) ?>
   </div>
 
 
