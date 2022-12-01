@@ -38,6 +38,7 @@ $hotels = [
 
 ];
 
+$stampa_brutta = false;
 ?>
 
 
@@ -55,17 +56,54 @@ $hotels = [
 <body>
 
 
-  <div class="container">
-    <?php foreach ($hotels as $hotel) : ?>
-      <ul>
-        <?php foreach ($hotel as $key => $value) : ?>
-          <li><?php echo "$key : $value"  ?></li>
-        <?php endforeach; ?>
-      </ul>
-    <?php endforeach; ?>
-  </div>
+  <?php if ($stampa_brutta) : ?>
+    <div class="container">
+      <?php foreach ($hotels as $hotel) : ?>
+        <ul>
+          <?php foreach ($hotel as $key => $value) : ?>
+            <li><?php echo "$key : $value"  ?></li>
+          <?php endforeach; ?>
+        </ul>
+      <?php endforeach; ?>
+    </div>
+  <?php endif; ?>
 
-  <div class="container">
+
+
+
+  <div class="container my-5">
+
+    <form action="./index.php" class="d-flex">
+
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="parcheggioSi" id="flexRadioDefault1">
+        <label class="form-check-label" for="flexRadioDefault1">
+          Con parcheggio
+        </label>
+      </div>
+
+      <div class="form-check mx-3">
+        <input class="form-check-input" type="radio" name="parcheggioNo" id="flexRadioDefault2">
+        <label class="form-check-label" for="flexRadioDefault2">
+          Senza parcheggio
+        </label>
+      </div>
+
+      <div class="form-check mx-3">
+        <input class="form-check-input w-25" type="number" name="voto" id="voto">
+        <label class="form-check-label mx-2" for="voto">
+          Voto
+        </label>
+      </div>
+
+      <div class="form-check mx-3">
+        <button class="btn btn-primary" type="submit">Search</button>
+      </div>
+
+    </form>
+
+
+
 
     <table class="table table-striped">
       <thead>
