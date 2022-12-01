@@ -152,7 +152,7 @@ $stampa_brutta = false;
               </tr>
             <?php endif; ?>
 
-            <?php if ($_GET['parcheggio'] === 'false' && $hotel['parking'] === false) : ?>
+            <?php if ($_GET['parcheggio'] === 'false' && $hotel['parking'] === false && $hotel['vote'] >= $_GET['voto']) : ?>
               <tr>
 
                 <?php foreach ($hotel as $key => $value) : ?>
