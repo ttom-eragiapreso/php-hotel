@@ -108,6 +108,7 @@ $stampa_brutta = false;
 
     <table class="table table-striped">
 
+      <!-- Per la table head non è elegantissimo ma mi stampo il nome della key del primo "hotel" così ottengo una sola volta le key che sono tutte uguali per gli hotels -->
       <thead>
         <tr>
           <?php foreach ($hotels[0] as $key => $value) : ?>
@@ -118,8 +119,9 @@ $stampa_brutta = false;
 
       <tbody>
 
-
+        <!-- Se pargheggio ancora non esiste e il voto è vuoto allora faccio la stampa senza nessun filtro -->
         <?php if (!isset($_GET['parcheggio']) && empty($_GET['voto'])) : ?>
+
           <?php foreach ($hotels as $hotel) : ?>
 
             <tr>
@@ -133,9 +135,30 @@ $stampa_brutta = false;
 
           <?php endforeach; ?>
 
+
+
+          <!-- Se invece parcheggio non esiste, ma il voto non è vuoto, allora faccio solo il filtro per il voto -->
+        <?php elseif (!isset($_GET['parcheggio']) && !empty($_GET['voto'])) : ?>
+
+          <?php foreach ($hotels as $hotel) : ?>
+
+            <?php if ($hotel['vote'] >= $_GET['voto']) : ?>
+
+              <tr>
+                <?php foreach ($hotel as $key => $value) : ?>
+                  <?php if ($key === 'parking') {
+                    $value === false ? $value = 'No' : $value = 'Si';
+                  } ?>
+                  <td><?php echo "$value" ?></td>
+                <?php endforeach; ?>
+              </tr>
+            <?php endif ?>
+          <?php endforeach; ?>
+
+
+
+          <!-- Altrimenti vuol dire che esiste sia il valore del parcheggio, sia il voto, e faccio una stampa attraverso entrambi i filtri -->
         <?php else : ?>
-
-
 
           <?php foreach ($hotels as $hotel) : ?>
 
